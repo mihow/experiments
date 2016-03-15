@@ -17,6 +17,8 @@ Matched 4 digits of pi after 10,795 iterations: 3.1415
 Matched 5 digits of pi after 136,122 iterations: 3.14159
 Matched 6 digits of pi after 1,530,001 iterations: 3.141592
 Matched 7 digits of pi after 18,658,565 iterations: 3.1415926
+Matched 8 digits of pi after 156,094,710 iterations: 3.14159265
+Matched 9 digits of pi after 1,686,377,316 iterations: 3.141592653
 Wikipedia says it will take about 5,000,000,000 to get to 10 digits.
 """
 
