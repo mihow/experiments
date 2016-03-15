@@ -80,9 +80,12 @@ class PiSearch(object):
 
             log.debug(self.status())
 
-            match, num_places = self.test_against_pi(self.last_result())
+            match, num_places = self.test_against_pi(
+                    self.last_result(), self.num_digits_found)
+
             if match and (num_places > self.num_digits_found):
                 self.num_digits_found = num_places
+                log.debug("**********************")
                 log.info(
                         "Matched {:d} digits of pi "
                         "after {:,d} iterations "
@@ -94,6 +97,7 @@ class PiSearch(object):
                         self.last_result(),
                         pi)
                 )
+                log.debug("**********************")
 
 
     def next_term(self, nominator, denominator):
@@ -115,6 +119,9 @@ class PiSearch(object):
     def test_against_pi(self, n, min_places=1):
         """
         Test if `n` matches any part of pi
+        @TODO speed this up. Can we search for just the next
+        digit? Subtract the 2 numbers and compare instead
+        of converting to strings?
 
         >>> ps = PiSearch()
         >>> ps.test_against_pi(3.140000, min_places=3)
@@ -132,13 +139,10 @@ class PiSearch(object):
         n_str = "{:.{prec}f}".format(n, prec=len(pi_str))
         remainder_str = n_str.split('.')[-1]
 
-        for i in range(len(remainder_str)):
+        for i in range(len(remainder_str))[min_places:]:
             k = len(remainder_str) - i
-            log.debug("{} places from '{}' (n={})".format(
-                         k, remainder_str, n))
-            log.debug("Testing '{}' \n"
-                      "Against '{}'".format(
-                        remainder_str[:k], pi_str))
+            log.debug("Testing {} places: {} ".format(
+                        k, remainder_str[:k]))
             if pi_str.startswith(remainder_str[:k]):
                 if k >= min_places:
                     return (True, k)
@@ -157,7 +161,7 @@ class PiSearch(object):
             self.iterations,
             "{:d}/{:d}".format(*self.last_fraction), 
             "{:.2f} seconds".format(self.time),
-            self.last_result,
+            self.last_result(),
         )
 
 
