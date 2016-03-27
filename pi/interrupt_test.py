@@ -24,7 +24,7 @@ signal.signal(signal.SIGINFO, show_results)
 # Stop / Start counter with signals without exiting>
 
 print("PID: {}".format(os.getpid()))
-print("Show current count with: `kill -INFO {}`".format(os.getpid()))
+print("Show current count with: `kill -INFO {}` or Ctrl-T".format(os.getpid()))
 
 while True:
     try:
