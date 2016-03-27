@@ -20,9 +20,11 @@ def show_results(*args, **kwargs):
             n / elapsed_time.total_seconds()))
 
 signal.signal(signal.SIGUSR1, show_results)
+signal.signal(signal.SIGINFO, show_results)
+# Stop / Start counter with signals without exiting>
 
 print("PID: {}".format(os.getpid()))
-print("Show current count with: `kill -USR1 {}`".format(os.getpid()))
+print("Show current count with: `kill -INFO {}`".format(os.getpid()))
 
 while True:
     try:
